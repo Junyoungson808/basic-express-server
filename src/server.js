@@ -3,12 +3,15 @@
 const express = require('express');
 const notFound = require('./error-handlers/404');
 const errorHandler = require('./error-handlers/500');
-// const logger = require('./middleware/logger');
+const logger = require('./middleware/logger');
+const validator = require('./middleware/validator');
 
 const PORT = process.env.PORT || 3002;
 
 // design principle: singleton
 const app = express();
+
+app.use(logger);
 
 app.get('/', (req, res, next) => {
   res.status(200).send('Hello World');
@@ -18,13 +21,13 @@ app.get('/bad', (req, res, next) => {
   next('this is a bad route');
 });
 
-app.get('/pet', (req, res, next) => {
+app.get('/person', validator,  (req, res, next) => {
   // console.log(req);
-  let { petName } = req.query;
-  // console.log("petName", petName);
+  let { personName } = req.query;
+  // console.log("personName", personName);
   try {
-    if (petName) {
-      res.status(200).send(`${petName} is awesome`);
+    if (personName) {
+      res.status(200).send(`${personName} is awesome`);
     } else {
       res.status(200).send('What');
     }
