@@ -1,8 +1,8 @@
 'use strict';
 
 const supertest = require('supertest');
-const { app } = require('../app');
-const request = supertest(app);
+const myServer = require('../server');
+const request = supertest(myServer);
 
 describe('API Server', () => {
   it('handles invalid requests', async () => {
@@ -26,17 +26,7 @@ describe('API Server', () => {
     expect(response.text).toEqual('Hello World');
   });
 
-  it('handles \'/person\' route without query param correctly', async () => {
-    const response = await request.get('/person');
 
-    expect(response.text).toEqual('Hello person');
-  });
-
-  it('handles \'/person\' route with query param correctly', async () => {
-    const response = await request.get('/person&personName');
-
-    expect(response.text).toEqual('Person is awesome');
-  });
 
 
   

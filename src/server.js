@@ -22,18 +22,19 @@ app.get('/bad', (req, res, next) => {
 });
 
 app.get('/person', validator,  (req, res, next) => {
+  res.status(200).send(req.query);
   // console.log(req);
-  let { personName } = req.query;
+  // let { personName } = req.query;
   // console.log("personName", personName);
-  try {
-    if (personName) {
-      res.status(200).send(`${personName} is awesome`);
-    } else {
-      res.status(200).send('What');
-    }
-  } catch (err) {
-    next(err.message);
-  }
+  // try {
+  //   if (personName) {
+  //     res.status(200).send(`${personName} is awesome`);
+  //   } else {
+  //     res.status(200).send('What');
+  //   }
+  // } catch (err) {
+  //   next(err.message);
+  // }
 });
 
 app.use('*', notFound);
